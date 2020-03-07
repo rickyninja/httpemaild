@@ -2,15 +2,24 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
+	"net"
 	"net/http"
 	"os/exec"
 	"strings"
 )
 
 func main() {
+	var (
+		host string
+		port string
+	)
+	flag.StringVar(&host, "host", "", "host associated with httpemaild")
+	flag.StringVar(&port, "port", "8080", "port associated with httpemaild")
+	flag.Parse()
 	http.Handle("/minecraft/notify", NewEmail())
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(net.JoinHostPort(host, port), nil))
 }
 
 type Email struct {

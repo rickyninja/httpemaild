@@ -1,0 +1,13 @@
+[Unit]
+Description=httpemaild is an http service gateway to send mail via mutt
+After=network-online.target
+
+[Service]
+User=jeremys
+ExecStart=/home/jeremys/bin/httpemaild
+KillMode=process
+Restart=on-failure
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
